@@ -148,6 +148,9 @@ class LoginViewController: UIViewController {
         textField.textAlignment = .left
         textField.placeholder = placeholder
         textField.autocapitalizationType = .none
+
+        let indentSize = Self.mainScreenWidth * LayoutMetrics.indentTextFieldForMultiplier
+        textField.indent(size: indentSize)
     }
 
     private func customizeLabelAboveTextField(_ label: UILabel, text: String, ofSize: CGFloat) {
@@ -173,6 +176,7 @@ extension LoginViewController {
         static let heightMarginButtonMultiplier: CGFloat = 0.07
         static let cornerRadiusTextFieldMultiplier: CGFloat = 0.035
         static let cornerRadiusButtonMultiplier: CGFloat = 0.035
+        static let indentTextFieldForMultiplier: CGFloat = 0.05
     }
 
     private enum ColorPalette {
