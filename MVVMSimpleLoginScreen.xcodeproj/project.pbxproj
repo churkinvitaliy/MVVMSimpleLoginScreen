@@ -16,6 +16,7 @@
 		0F98B48D2B7FE07300581F87 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F98B48C2B7FE07300581F87 /* UserDataModel.swift */; };
 		0F98B4902B7FE4DF00581F87 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0F98B48F2B7FE4DF00581F87 /* SnapKit */; };
 		0F98B4922B7FE4DF00581F87 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 0F98B4912B7FE4DF00581F87 /* SnapKit-Dynamic */; };
+		0F98B4952B7FE94700581F87 /* UITextFiled+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F98B4942B7FE94700581F87 /* UITextFiled+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0F98B47E2B7FDAD300581F87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F98B48A2B7FDFC500581F87 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0F98B48C2B7FE07300581F87 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDataModel.swift; path = ../../../../../../../UserDataModel.swift; sourceTree = "<group>"; };
+		0F98B4942B7FE94700581F87 /* UITextFiled+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextFiled+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 		0F98B46F2B7FDAD200581F87 /* MVVMSimpleLoginScreen */ = {
 			isa = PBXGroup;
 			children = (
+				0F98B4932B7FE92F00581F87 /* Extensions */,
 				0F98B4862B7FDBE500581F87 /* App */,
 				0F98B4852B7FDBDE00581F87 /* Sources */,
 				0F98B4842B7FDBD600581F87 /* Resources */,
@@ -120,6 +123,14 @@
 				0F98B48C2B7FE07300581F87 /* UserDataModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0F98B4932B7FE92F00581F87 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0F98B4942B7FE94700581F87 /* UITextFiled+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +213,7 @@
 				0F98B48D2B7FE07300581F87 /* UserDataModel.swift in Sources */,
 				0F98B4752B7FDAD200581F87 /* LoginViewController.swift in Sources */,
 				0F98B4712B7FDAD200581F87 /* AppDelegate.swift in Sources */,
+				0F98B4952B7FE94700581F87 /* UITextFiled+Extensions.swift in Sources */,
 				0F98B48B2B7FDFC500581F87 /* LoginViewModel.swift in Sources */,
 				0F98B4732B7FDAD200581F87 /* SceneDelegate.swift in Sources */,
 			);
