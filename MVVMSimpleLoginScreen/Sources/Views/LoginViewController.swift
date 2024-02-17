@@ -47,6 +47,7 @@ class LoginViewController: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.isSecureTextEntry = true
         customizeTextField(textField, placeholder: "Password")
         return textField
     }()
