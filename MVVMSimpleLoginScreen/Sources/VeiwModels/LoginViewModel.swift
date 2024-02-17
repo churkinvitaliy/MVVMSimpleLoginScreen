@@ -2,8 +2,14 @@ import Foundation
 import Combine
 import UIKit
 
-class LoginViewModel {
+protocol LoginViewModelProtocol {
+    var selectedColor: UIColor? { get }
+    var selectedText: String? { get }
+    var cancellables: Set<AnyCancellable> { get set }
+    func authenticate(username: String, password: String)
+}
 
+class LoginViewModel: LoginViewModelProtocol {
     // Published properties to observe changes in the UI
     @Published var selectedColor: UIColor?
     @Published var selectedText: String?
