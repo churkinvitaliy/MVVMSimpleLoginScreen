@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Combine
 
 class LoginViewController: UIViewController {
 
@@ -10,14 +11,15 @@ class LoginViewController: UIViewController {
     static let mainScreenHeight = mainScreenBounds.height
 
     // View model responsible for the login logic
-    private let viewModel = LoginViewModel()
+    var viewModel: LoginViewModelProtocol?
+    private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - UI Elements -
 
     private lazy var loginTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Login"
+        label.text = "Status.."
         label.textColor = ColorPalette.defaultTitleLable
         label.font = UIFont.systemFont(ofSize: FontSize.titleLabel, weight: .bold)
         return label
@@ -155,25 +157,25 @@ class LoginViewController: UIViewController {
             return
         }
         // Initiation of authentication process
-        viewModel.authenticate(username: username, password: password)
+        viewModel?.authenticate(username: username, password: password)
     }
 
     // MARK: - Combine
 
     // Bind view model properties to UI elements
     private func bindViewModel() {
-
+        
         // Bind statusText to loginTitleLabel text property
-        viewModel.$selectedText
+        (viewModel as? LoginViewModel)?.$selectedText
             .compactMap { $0 }                        // Use compactMap to filter out optional values (nil) from the publisher
             .assign(to: \.text, on: loginTitleLabel)  // Assign the non-nil values to the 'text' property of loginTitleLabel
-            .store(in: &viewModel.cancellables)       // Store the cancellable returned by assign(in:) in the cancellables set
+            .store(in: &cancellables)                 // Store the cancellable returned by assign(in:) in the cancellables set
 
         // Bind selectedColor to loginTitleLabel textColor property
-        viewModel.$selectedColor
+        (viewModel as? LoginViewModel)?.$selectedColor
             .compactMap { $0 }
             .assign(to: \.textColor, on: loginTitleLabel)
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
     }
 
     // MARK: - Func -
