@@ -148,7 +148,9 @@ class LoginViewController: UIViewController {
 
     @objc
     private func loginButtonPressed() {
-        guard let username = loginTextField.text, let password = passwordTextField.text else {
+        guard let username = loginTextField.text, let password = passwordTextField.text,
+              !username.isEmpty, !password.isEmpty else {
+            showAlert(title: "ОШИБКА", message: "Введите логин и пароль!")
             return
         }
         // Initiation of authentication process
@@ -194,6 +196,11 @@ class LoginViewController: UIViewController {
         label.textAlignment = .left
     }
 
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension LoginViewController {
