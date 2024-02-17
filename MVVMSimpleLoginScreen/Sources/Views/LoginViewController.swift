@@ -9,6 +9,9 @@ class LoginViewController: UIViewController {
     static let mainScreenWidth = mainScreenBounds.width
     static let mainScreenHeight = mainScreenBounds.height
 
+    // View model responsible for the login logic
+    private let viewModel = LoginViewModel()
+
     // MARK: - UI Elements -
 
     private lazy var loginTitleLabel: UILabel = {
@@ -56,6 +59,7 @@ class LoginViewController: UIViewController {
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.loginButton, weight: .black)
         button.setTitleColor(ColorPalette.buttonTitle, for: .normal)
+        button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
         return button
     }()
 
@@ -66,6 +70,7 @@ class LoginViewController: UIViewController {
         setupView()
         setupHierarchy()
         setupLayout()
+        bindViewModel()
     }
 
     // MARK: - Setups -
@@ -137,6 +142,35 @@ class LoginViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-leadingTrailingMarginButton)
             make.height.equalTo(heightMarginButton)
         }
+    }
+
+    // MARK: - Action -
+
+    @objc
+    private func loginButtonPressed() {
+        guard let username = loginTextField.text, let password = passwordTextField.text else {
+            return
+        }
+        // Initiation of authentication process
+        viewModel.authenticate(username: username, password: password)
+    }
+
+    // MARK: - Combine
+
+    // Bind view model properties to UI elements
+    private func bindViewModel() {
+
+        // Bind statusText to loginTitleLabel text property
+        viewModel.$selectedText
+            .compactMap { $0 }                        // Use compactMap to filter out optional values (nil) from the publisher
+            .assign(to: \.text, on: loginTitleLabel)  // Assign the non-nil values to the 'text' property of loginTitleLabel
+            .store(in: &viewModel.cancellables)       // Store the cancellable returned by assign(in:) in the cancellables set
+
+        // Bind selectedColor to loginTitleLabel textColor property
+        viewModel.$selectedColor
+            .compactMap { $0 }
+            .assign(to: \.textColor, on: loginTitleLabel)
+            .store(in: &viewModel.cancellables)
     }
 
     // MARK: - Func -
