@@ -1,9 +1,8 @@
 import Foundation
 import Combine
-import UIKit
 
-protocol LoginViewModelProtocol {
-    var selectedColor: UIColor? { get }
+protocol LoginViewModelProtocol: AnyObject {
+    var selectedColor: String? { get }
     var selectedText: String? { get }
     var cancellables: Set<AnyCancellable> { get set }
     func authenticate(username: String, password: String)
@@ -11,7 +10,7 @@ protocol LoginViewModelProtocol {
 
 class LoginViewModel: LoginViewModelProtocol {
     // Published properties to observe changes in the UI
-    @Published var selectedColor: UIColor?
+    @Published var selectedColor: String?
     @Published var selectedText: String?
 
     // Set to hold Combine cancellables to manage subscriptions
@@ -25,10 +24,10 @@ class LoginViewModel: LoginViewModelProtocol {
         // Update UI properties based on authentication result
         if isValid {
             selectedText = "Привет, \(username.capitalized)!"
-            selectedColor = .systemGreen
+            selectedColor = "green"
         } else {
             selectedText = "Неверный логин или пароль!"
-            selectedColor = .systemRed
+            selectedColor = "red"
         }
     }
 
