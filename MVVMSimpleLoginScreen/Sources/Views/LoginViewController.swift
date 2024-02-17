@@ -164,17 +164,29 @@ class LoginViewController: UIViewController {
 
     // Bind view model properties to UI elements
     private func bindViewModel() {
-        
+        guard let viewModel = viewModel as? LoginViewModel else { return }
+
         // Bind statusText to loginTitleLabel text property
-        (viewModel as? LoginViewModel)?.$selectedText
-            .compactMap { $0 }                        // Use compactMap to filter out optional values (nil) from the publisher
-            .assign(to: \.text, on: loginTitleLabel)  // Assign the non-nil values to the 'text' property of loginTitleLabel
+        viewModel.$selectedText
+            .sink { text in
+                self.loginTitleLabel.text = text
+            }                                         // Update the text property of loginTitleLabel with the received value
             .store(in: &cancellables)                 // Store the cancellable returned by assign(in:) in the cancellables set
 
         // Bind selectedColor to loginTitleLabel textColor property
-        (viewModel as? LoginViewModel)?.$selectedColor
-            .compactMap { $0 }
-            .assign(to: \.textColor, on: loginTitleLabel)
+        viewModel.$selectedColor
+            .sink { color in
+                var textColor: UIColor?
+                switch color?.lowercased() {
+                case "green":
+                    textColor = .systemGreen
+                case "red":
+                    textColor = .systemRed
+                default:
+                    textColor = .white
+                }
+                self.loginTitleLabel.textColor = textColor
+            }
             .store(in: &cancellables)
     }
 
